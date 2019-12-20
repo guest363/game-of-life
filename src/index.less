@@ -1,0 +1,19 @@
+#game-land {
+    padding: 2vh 2vw;
+    overflow: hidden;
+    box-sizing: border-box;
+    margin: 0 auto;
+    .row {
+        display: flex;
+        margin: 0 auto;
+        width: min-content;
+    }
+    .cell {
+        border: 1px solid black;
+        width: calc(92vw / 20);
+        height: calc(92vh / 20);
+        &__active {
+            background-color: green;
+        }
+    }
+}

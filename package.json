@@ -1,0 +1,34 @@
+{
+  "name": "game-of-life",
+  "version": "0.0.1",
+  "description": "Игра \"Жизнь\" - клеточный автомат, придуманный английским математиком Джоном Конвеем в 1970 году.",
+  "main": "index.js",
+  "devDependencies": {
+    "@babel/core": "^7.6.4",
+    "@babel/preset-env": "^7.6.3",
+    "@webpack-cli/init": "^0.2.2",
+    "babel-loader": "^8.0.6",
+    "babel-plugin-syntax-dynamic-import": "^6.18.0",
+    "css-loader": "^3.2.0",
+    "html-webpack-plugin": "^3.2.0",
+    "less": "^3.10.3",
+    "less-loader": "^5.0.0",
+    "mini-css-extract-plugin": "^0.8.0",
+    "style-loader": "^1.0.0",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10",
+    "webpack-dev-server": "^3.9.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack",
+    "start": "webpack-dev-server"
+  },
+  "keywords": [
+    "js",
+    "game",
+    "simple"
+  ],
+  "author": "Oleg Moiseev",
+  "license": "ISC"
+}
