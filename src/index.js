@@ -1,7 +1,11 @@
 import './index.less';
 const LAND = document.getElementById('game-land');
-const ROWS = 16;
-const COLS = 16;
+const WIDTH = window.innerWidth - (window.innerWidth * 0.1);
+const HEIGHT = window.innerHeight -  (window.innerHeight * 0.15);
+const ROWS = Math.floor(HEIGHT / 30);
+const COLS = Math.floor(WIDTH / 30);
+console.log(WIDTH)
+console.log(COLS)
 let evo_speed = 2500;
 
 const makeCell = () => {
@@ -58,28 +62,28 @@ const isBornOrSurvive = (selfState, arroundCells) => {
     const survive = selfState && (arroundCells === 2 || arroundCells === 3)
     return newBorn || survive;
 };
+const OLD_GEN = [...LAND.children];
 const startEvo = () => {
-    let fragment = new DocumentFragment();
-    let newGen = [...LAND.cloneNode(true).children];
-    const PAST_ROWS = [...LAND.children];
-    newGen.forEach((row, rowIndex) => {
-        [...row.children].map((cell, cellIndex) => {
-            const cellArround = cellLifeCounter([rowIndex, cellIndex], PAST_ROWS);
+    let newGen = [];
+    OLD_GEN.forEach((row, rowIndex) => {
+        Array.from(row.children).forEach((cell, cellIndex) => {
+            const cellArround = cellLifeCounter([rowIndex, cellIndex], OLD_GEN);
             const selfLife = cell.classList.contains('cell__active');
             isBornOrSurvive(selfLife, cellArround) ?
-                cell.classList.add('cell__active') : cell.classList.remove('cell__active');
-            cell.onclick = function () {
-                this.classList.toggle(`cell__active`);
-            };
-            return cell;
+                newGen.push([rowIndex, cellIndex, 'add']) : newGen.push([rowIndex, cellIndex, 'remove']);
         });
-        fragment.append(row);
     })
+    const evolution = diff => {
+        diff.forEach(cell => {
+            const rowIndex = cell[0];
+            const cellIndex = cell[1];
+            const action = cell[2];
+            OLD_GEN[rowIndex].children[cellIndex].classList[action]('cell__active');
+        });
 
-    LAND.innerHTML = '';
-    LAND.append(fragment);
-    fragment = '';
-    newGen = '';
+    }
+
+    evolution(newGen);
 };
 let timer = setInterval(startEvo, evo_speed);
 function setEvoSpeed() {
