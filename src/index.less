@@ -3,15 +3,23 @@ html , body {
   margin: 0;
 }
 footer {
+  position: relative;
   width: auto;
-  height: 50px;
+  height: 5vh;
+}
+#scroll-span{
+  position: absolute;
+  color: white;
+  left: 10px;
+  top: 5px;
+  z-index: 2;
 }
 #game-land {
   padding: 1em;
     box-sizing: border-box;
     margin: 0 auto;
     min-height: 100%;
-    margin-bottom: -50px;
+    margin-bottom: -5vh;
     .row {
         display: flex;
         margin: 0 auto;
@@ -59,6 +67,7 @@ input[type=range] {
   }
   input[type=range]::-moz-range-track {
     width: 100%;
+    z-index: 5;
     height: 25.6px;
     cursor: pointer;
     box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
@@ -77,6 +86,7 @@ input[type=range] {
   }
   input[type=range]::-ms-track {
     width: 100%;
+    z-index: 5;
     height: 25.6px;
     cursor: pointer;
     background: transparent;
