@@ -11,7 +11,7 @@ import isBornOrDie from './game-ruls';
   */
 
 export default OLD_GEN => {
-    let newGeneration = [];
+    const newGeneration = [];
     OLD_GEN.forEach((row, rowIndex) => {
         [...row.children].forEach((cell, cellIndex) => {
             const cellArround = lifeCellsArroundCounter([rowIndex, cellIndex], OLD_GEN);
