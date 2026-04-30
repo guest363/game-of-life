@@ -1,5 +1,12 @@
 export const GAME_LAND = document.getElementById('game-land');
-const WIDTH = window.innerWidth - (window.innerWidth * 0.1);
-const HEIGHT = window.innerHeight - (window.innerHeight * 0.15);
-export const ROWS = Math.floor(HEIGHT / 30);
-export const COLS = Math.floor(WIDTH / 30);
+
+const HEADER_HEIGHT = 56;
+const FOOTER_HEIGHT = 80;
+const PADDING = 20;
+const CELL_SIZE = 22;
+
+const availableHeight = window.innerHeight - HEADER_HEIGHT - FOOTER_HEIGHT - PADDING;
+const availableWidth = window.innerWidth * 0.75;
+
+export const ROWS = Math.floor(availableHeight / CELL_SIZE);
+export const COLS = Math.floor(availableWidth / CELL_SIZE);
