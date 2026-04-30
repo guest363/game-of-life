@@ -5,19 +5,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Игра "Жизнь"</title>
+    <meta name="description" content="Интерактивная реализация клеточного автомата «Жизнь» Джона Конвея. Перетаскивайте фигуры, управляйте эволюцией и наблюдайте за эмерджентным поведением.">
+    <title>Игра "Жизнь" — Клеточный автомат Конвея</title>
 </head>
 
 <body class="body">
     <header>
-
+        <h1>Игра "Жизнь"</h1>
+        <div class="header-actions">
+            <button class="header-btn" id="btn-info" title="Об игре и правила">❓</button>
+            <button class="header-btn" id="btn-toggle-panel" title="Показать/скрыть фигуры">🧩</button>
+        </div>
     </header>
-    <div id="game-land">
-    </div>
+    <div id="game-land"></div>
 
     <footer>
-        <input type="range" min="1" max="50" id="speed" oninput="setEvoSpeed()" value="30">
+        <div class="speed-control" id="speed-control">
+            <div class="speed-label">Скорость эволюции</div>
+            <div class="speed-slider-row">
+                <span class="speed-icon" title="Медленно">🐢</span>
+                <input type="range" min="1" max="50" id="speed" oninput="setEvoSpeed()" value="30">
+                <span class="speed-icon" title="Быстро">⚡</span>
+            </div>
+            <div class="speed-value-row">
+                <span class="speed-value" id="speed-value">3.0 сек</span>
+            </div>
+            <div class="speed-controls-row">
+                <button class="speed-btn" id="btn-pause" title="Пауза / Старт">⏸</button>
+                <button class="speed-btn" id="btn-step" title="Один шаг">⏭</button>
+            </div>
+        </div>
     </footer>
+    <script type="module" src="/src/index.js"></script>
 </body>
 
 </html>
