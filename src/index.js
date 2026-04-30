@@ -11,6 +11,7 @@ let isPaused = false;
 
 let draggedPattern = null;
 let ghostCells = [];
+let panelVisible = true;
 
 function speedFromSlider(val) {
     return (51 - val) * 100;
@@ -25,6 +26,130 @@ function updateSpeedDisplay() {
     } else {
         display.textContent = `${ms} мс`;
     }
+}
+
+function createInfoModal() {
+    const modal = document.createElement('div');
+    modal.classList.add('info-modal');
+
+    const content = document.createElement('div');
+    content.classList.add('info-modal-content');
+
+    const closeBtn = document.createElement('button');
+    closeBtn.classList.add('modal-close');
+    closeBtn.innerHTML = '&times;';
+    closeBtn.onclick = () => modal.classList.remove('active');
+
+    content.appendChild(closeBtn);
+
+    content.innerHTML += `
+        <h2 class="info-title">Игра «Жизнь» Джона Конвея</h2>
+
+        <div class="info-section">
+            <h3>🧬 Что это такое?</h3>
+            <p>
+                «Жизнь» — это <strong>клеточный автомат</strong>, придуманный британским математиком
+                <strong>Джоном Хортоном Конвеем</strong> в 1970 году. Это не игра в традиционном смысле —
+                у неё нет игроков и победителей. Вы лишь задаёте начальную конфигурацию живых клеток,
+                а затем наблюдаете, как они эволюционируют по простейшим правилам.
+            </p>
+            <p>
+                Конвей искал простейший набор правил, который порождал бы <strong>непредсказуемое</strong>
+                и <strong>сложное</strong> поведение. Ему это удалось — игра «Жизнь» стала одним из самых
+                знаменитых примеров <strong>эмерджентности</strong>: из трёх простых правил рождаются
+                структуры невероятной сложности.
+            </p>
+        </div>
+
+        <div class="info-section">
+            <h3>📜 Правила</h3>
+            <div class="rules-grid">
+                <div class="rule-card">
+                    <div class="rule-icon">💀</div>
+                    <div class="rule-text">
+                        <strong>Одиночество:</strong> живая клетка с менее чем 2 соседями умирает
+                    </div>
+                </div>
+                <div class="rule-card">
+                    <div class="rule-icon">✅</div>
+                    <div class="rule-text">
+                        <strong>Выживание:</strong> живая клетка с 2 или 3 соседями продолжает жить
+                    </div>
+                </div>
+                <div class="rule-card">
+                    <div class="rule-icon">💀</div>
+                    <div class="rule-text">
+                        <strong>Перенаселение:</strong> живая клетка с более чем 3 соседями умирает
+                    </div>
+                </div>
+                <div class="rule-card">
+                    <div class="rule-icon">🌱</div>
+                    <div class="rule-text">
+                        <strong>Рождение:</strong> мёртвая клетка с ровно 3 соседями оживает
+                    </div>
+                </div>
+            </div>
+            <p class="rules-note">
+                Соседями считаются все 8 клеток вокруг (по горизонтали, вертикали и диагонали).
+                Все изменения происходят одновременно — это называется «синхронное обновление».
+            </p>
+        </div>
+
+        <div class="info-section">
+            <h3>🔬 Почему это важно?</h3>
+            <p>
+                Игра «Жизнь» — это не просто забава. Она доказала несколько фундаментальных идей:
+            </p>
+            <ul class="info-list">
+                <li>
+                    <strong>Эмерджентность</strong> — сложное поведение возникает из простых правил.
+                    Никто не «программирует» глайдеры или пульсары — они появляются сами.
+                </li>
+                <li>
+                    <strong>Тьюринг-полнота</strong> — в 2000-х было доказано, что в игре «Жизнь» можно
+                    построить полноценный компьютер. Она вычислительно эквивалентна любому языку программирования.
+                </li>
+                <li>
+                    <strong>Самоорганизация</strong> — из хаоса случайной начальной конфигурации
+                    неизбежно возникает порядок: устойчивые фигуры, осцилляторы, космические корабли.
+                </li>
+                <li>
+                    <strong>Модель жизни</strong> — клеточные автоматы используются для моделирования
+                    биологических процессов, распространения эпидемий, роста кристаллов и городского планирования.
+                </li>
+            </ul>
+        </div>
+
+        <div class="info-section">
+            <h3>🎮 Как играть</h3>
+            <ul class="info-list">
+                <li><strong>Клик по клетке</strong> — включить/выключить клетку вручную</li>
+                <li><strong>Панель фигур</strong> — нажмите 🧩 в заголовке, чтобы открыть библиотеку фигур</li>
+                <li><strong>Перетаскивание</strong> — захватите фигуру и перетащите на поле для точного размещения</li>
+                <li><strong>Клик по фигуре</strong> — разместить в центре поля</li>
+                <li><strong>ℹ️ на фигуре</strong> — узнать описание и историю паттерна</li>
+                <li><strong>⏸ Пауза</strong> — остановить эволюцию для ручного редактирования</li>
+                <li><strong>⏭ Шаг</strong> — выполнить ровно одно поколение</li>
+            </ul>
+        </div>
+
+        <div class="info-section info-section--footer">
+            <p>
+                Джон Конвей (1937–2020) — выдающийся математик, известный работами в теории групп,
+                теории чисел и комбинаторной теории игр. Игра «Жизнь» принесла ему всемирную славу
+                после публикации в журнале Scientific American в октябре 1970 года.
+            </p>
+        </div>
+    `;
+
+    modal.appendChild(content);
+
+    modal.onclick = (e) => {
+        if (e.target === modal) modal.classList.remove('active');
+    };
+
+    document.body.appendChild(modal);
+    return modal;
 }
 
 function createPatternModal() {
@@ -128,8 +253,11 @@ function createPatternsPanel() {
 
     const hint = document.createElement('p');
     hint.classList.add('panel-hint');
-    hint.textContent = '💡 Перетащите фигуру на поле или нажмите для размещения в центре';
+    hint.textContent = 'Перетащите фигуру на поле или нажмите для размещения в центре';
     panel.appendChild(hint);
+
+    const categoriesContainer = document.createElement('div');
+    categoriesContainer.classList.add('categories-container');
 
     const categories = getCategories();
 
@@ -193,8 +321,10 @@ function createPatternsPanel() {
         });
 
         categoryDiv.appendChild(patternsList);
-        panel.appendChild(categoryDiv);
+        categoriesContainer.appendChild(categoryDiv);
     });
+
+    panel.appendChild(categoriesContainer);
 
     const clearBtn = document.createElement('button');
     clearBtn.classList.add('clear-btn');
@@ -317,6 +447,8 @@ window.patternModal = patternModal;
 GAME_LAND.parentElement.insertBefore(patternModal.modal, GAME_LAND.nextSibling);
 GAME_LAND.parentElement.insertBefore(patternsPanel, patternModal.modal.nextSibling);
 
+const infoModal = createInfoModal();
+
 patternsPanel.addEventListener('click', (e) => {
     const patternBtn = e.target.closest('.pattern-btn');
     if (patternBtn) {
@@ -327,6 +459,17 @@ patternsPanel.addEventListener('click', (e) => {
     if (e.target.classList.contains('clear-btn')) {
         clearField();
     }
+});
+
+function togglePanel() {
+    panelVisible = !panelVisible;
+    patternsPanel.classList.toggle('hidden', !panelVisible);
+}
+
+document.getElementById('btn-toggle-panel').addEventListener('click', togglePanel);
+
+document.getElementById('btn-info').addEventListener('click', () => {
+    infoModal.classList.add('active');
 });
 
 function setEvoSpeed() {
