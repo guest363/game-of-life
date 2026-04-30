@@ -1,6 +1,5 @@
 ```
 # Build artifacts
-docs/assets/
 dist/
 build/
 *.js
