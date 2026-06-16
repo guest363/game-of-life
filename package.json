@@ -16,6 +16,6 @@
   "author": "Oleg Moiseev",
   "devDependencies": {
     "less": "^4.6.4",
-    "vite": "^8.0.10"
+    "vite": "^8.0.16"
   }
 }
